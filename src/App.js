@@ -1,6 +1,6 @@
 import React from 'react'; 
 import {Badge,Button,Alert} from 'react-bootstrap';
-import {ToastContainer,Toast, toast} from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import Items from './Components/Item/Items';
 
 //import 'App.css';
