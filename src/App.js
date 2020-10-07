@@ -1,5 +1,6 @@
 import React from 'react'; 
 import {Badge,Button,Alert} from 'react-bootstrap';
+import {ToastContainer,Toast, toast} from 'react-toastify';
 import Items from './Components/Item/Items';
 
 //import 'App.css';
@@ -18,8 +19,15 @@ class App extends React.Component{
  handleDeleteItem=id=>{
   const items=[...this.state.items];
   const filterItems=items.filter(p=>p.id!==id);
-
-  this.setState({items:filterItems});  
+  this.setState({items:filterItems}); 
+  
+  const index=items.findIndex(i=>i.id===id);
+  const item=items[index];
+  toast.error(`آیتم ${item.name} با موفقیت حذف گردید`,{
+    position:'bottom-center',
+    autoClose:5000,
+    closeOnClick:true
+  });
  }
 
  handleChangeName=(event,id)=>{
@@ -43,6 +51,11 @@ class App extends React.Component{
   if (item.fullname!=="" &item.fullname!==" "){
     items.push(item);
     this.setState({items,item:""});
+    toast.success('قلم مورد نظر اضافه شد',{
+      position:'bottom-center',
+      autoClose:5000,
+      closeOnClick:true
+    });
   }
  };
 
@@ -90,6 +103,7 @@ class App extends React.Component{
         </div>
 
         {item}
+        <ToastContainer/>
 
       </div>)
     }
