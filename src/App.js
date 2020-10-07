@@ -48,7 +48,7 @@ class App extends React.Component{
       name:this.state.item
     };
 
-  if (item.fullname!=="" &item.fullname!==" "){
+  if (item.name!=="" &item.name!==" "){
     items.push(item);
     this.setState({items,item:""});
     toast.success('قلم مورد نظر اضافه شد',{
