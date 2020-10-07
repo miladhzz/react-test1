@@ -39,7 +39,7 @@ class App extends React.Component{
       name:this.state.item
     };
 
-  if (item.name!=="" &item.name!==" "){
+  if (item.fullname!=="" &item.fullname!==" "){
     items.push(item);
     this.setState({items,item:""});
   }
