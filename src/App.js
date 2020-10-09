@@ -1,111 +1,96 @@
-import React from 'react'; 
-import {Badge,Button,Alert} from 'react-bootstrap';
-import {ToastContainer, toast} from 'react-toastify';
+import React from 'react';
+import {Button} from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 import Items from './Components/Item/Items';
+import Header from './Components/Common/Header';
+import ItemContext from './Context/ItemContext';
+import AddNewItem from './Components/Item/AddNewItem';
 
 //import 'App.css';
 
-class App extends React.Component{
+class App extends React.Component {
+	state = { items: [], item: '', showitem: true, appTitle:"مدیریت کننده اقلام" };
 
-  state = {items:[],
-  item:'',
-  showitem:true
-  };
+	handleShowItem = () => {
+		this.setState({ showitem: !this.state.showitem });
+	};
 
- handleShowItem=()=>{
-  this.setState({showitem:!this.state.showitem});
- }
+	handleDeleteItem = (id) => {
+		const items = [...this.state.items];
+		const filterItems = items.filter((p) => p.id !== id);
+		this.setState({ items: filterItems });
 
- handleDeleteItem=id=>{
-  const items=[...this.state.items];
-  const filterItems=items.filter(p=>p.id!==id);
-  this.setState({items:filterItems}); 
-  
-  const index=items.findIndex(i=>i.id===id);
-  const item=items[index];
-  toast.error(`آیتم ${item.name} با موفقیت حذف گردید`,{
-    position:'bottom-center',
-    autoClose:5000,
-    closeOnClick:true
-  });
- }
+		const index = items.findIndex((i) => i.id === id);
+		const item = items[index];
+		toast.error(`آیتم ${item.name} با موفقیت حذف گردید`, {
+			position: 'bottom-center',
+			autoClose: 5000,
+			closeOnClick: true,
+		});
+	};
 
- handleChangeName=(event,id)=>{
-  const {items:allItems}=this.state;
-  const items=[...allItems];
-  const itemIndex=allItems.findIndex(p=>p.id===id);
-  const item=allItems[itemIndex];
+	handleChangeName = (event, id) => {
+		const { items: allItems } = this.state;
+		const items = [...allItems];
+		const itemIndex = allItems.findIndex((p) => p.id === id);
+		const item = allItems[itemIndex];
 
-  item.name=event.target.value;
-  Items[itemIndex]=item;
-  this.setState({items});
- }
- 
- handleNewItem=()=>{
-  const items=[...this.state.items];
-  const item={
-      id:Math.floor(Math.random()*1000),
-      name:this.state.item
-    };
+		item.name = event.target.value;
+		Items[itemIndex] = item;
+		this.setState({ items });
+	};
 
-  if (item.name!=="" &item.name!==" "){
-    items.push(item);
-    this.setState({items,item:""});
-    toast.success('قلم مورد نظر اضافه شد',{
-      position:'bottom-center',
-      autoClose:5000,
-      closeOnClick:true
-    });
-  }
- };
+	handleNewItem = () => {
+		const items = [...this.state.items];
+		const item = {
+			id: Math.floor(Math.random() * 1000),
+			name: this.state.item,
+		};
 
- setItem=event=>{
-     this.setState({item:event.target.value});
- }
-  render(){
-    const {items,showitem}=this.state;
-    let item=null;  
-    let badgestyle='';
+		if ((item.name !== '') & (item.name !== ' ')) {
+			items.push(item);
+			this.setState({ items, item: '' });
+			toast.success('قلم مورد نظر اضافه شد', {
+				position: 'bottom-center',
+				autoClose: 5000,
+				closeOnClick: true,
+			});
+		}
+	};
 
-    if (items.length>=3)
-      badgestyle="success";
-    if (items.length<=2)
-      badgestyle="warning";
-    if (items.length<=1)
-      badgestyle="danger";
+	setItem = (event) => {
+		this.setState({ item: event.target.value });
+	};
+	
+	render() {
+		const { items, showitem } = this.state;
+		let item = null;
 
-    if(showitem){
-        item=<Items items={items} DeleteItem={this.handleDeleteItem} changeName={this.handleChangeName}/>
-      }
-    
-    return(
-      <div className="rtl text-center">
-        <Alert variant="info">
-          <h2>مدیریت کننده اقلام</h2>
-        </Alert>    
-        <div>
-          <Alert variant="light">
-          تعداد اقلام  &nbsp;
-            <Badge pill variant={badgestyle}>{items.length} 
-            </Badge> عدد می باشد 
-          </Alert>        
-        </div>  
-        <div className="m-s p-2">
-          <form className="form-inline justify-content-center" onSubmit={event=>event.preventDefault()}>
-            <div  className="input-group">
-              <input type="text" className="form-control" placeholder=" اسم بهم بده " onChange={this.setItem} value={this.state.item}/>
-              <Button type="submit" onClick={this.handleNewItem} variant={"success"}className="fa fa-plus-square input-group-prepend"/>
-            </div>
-          </form>
-        </div>
-        <div>
-          <Button onClick={this.handleShowItem} variant={showitem ? "info":"danger"}>نمایش و مخفی</Button>
-        </div>
+		if (showitem) {
+			item = <Items />;
+		}
 
-        {item}
-        <ToastContainer/>
-
-      </div>)
-    }
+		return (
+			<ItemContext.Provider value={{
+				state:this.state,
+				handleDeleteItem:this.handleDeleteItem,
+				handleChangeName:this.handleChangeName,
+				handleNewItem:this.handleNewItem,
+				setItem:this.setItem
+      }}>
+				<div className="rtl text-center">
+					<Header/>
+					<AddNewItem/>
+					<div>
+						<Button onClick={this.handleShowItem} variant={showitem ? 'info' : 'danger'}>
+							نمایش و مخفی
+						</Button>
+					</div>
+					{item}
+					<ToastContainer />
+				</div>
+			</ItemContext.Provider>
+		);
+	}
 }
 export default App;

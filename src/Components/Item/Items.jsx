@@ -1,14 +1,17 @@
-import React from 'react';
+import React,{useContext} from 'react';
+import ItemContext from '../../Context/ItemContext.jsx';
 import Item from './Item.jsx';
 
-const Items=({items,DeleteItem,changeName})=>{
+const Items=()=>{
+    const context = useContext(ItemContext);
+    const {items}=context.state;
     return(
         <div>
             {items.map(item=>(
                 <Item key={item.id} 
                 name={item.name} 
-                deleted={()=>DeleteItem(item.id)}
-                changed={(event)=>changeName(event,item.id)}
+                deleted={()=>context.handleDeleteItem(item.id)}
+                changed={(event)=>context.handleChangeName(event,item.id)}
                 />
             ))}
         </div> );
