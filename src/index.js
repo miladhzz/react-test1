@@ -3,10 +3,12 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "react-toastify/dist/ReactToastify.css";
+import Calculator from "./Components/Calculator";
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    <Calculator />
   </React.StrictMode>,
   document.getElementById("root")
 );

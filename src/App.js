@@ -63,7 +63,7 @@ class App extends React.Component {
 	};
 	
 	render() {
-		const { items, showitem } = this.state;
+		const { showitem } = this.state;
 		let item = null;
 
 		if (showitem) {
