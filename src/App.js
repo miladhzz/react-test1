@@ -30,14 +30,14 @@ const App=()=>{
 	};
 
 	const handleChangeName = (event, id) => {
-		const { items: allItems } = getItems;
-		const items = [...allItems];
+		const allItems = [...getItems];
 		const itemIndex = allItems.findIndex((p) => p.id === id);
 		const item = allItems[itemIndex];
 
 		item.name = event.target.value;
-		items[itemIndex] = item;
-		setItems({items});
+		//const items = [...allItems];
+		Items[itemIndex] = item;
+		setItems(allItems);
 	};
 
 	const handleNewItem = () => {

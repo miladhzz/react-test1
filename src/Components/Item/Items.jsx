@@ -10,7 +10,7 @@ const Items=()=>{
                 <Item key={item.id} 
                 name={item.name} 
                 deleted={()=>context.handleDeleteItem(item.id)}
-                changed={(event)=>context.handleChangeName(event,item.id)}
+                changed={event=>context.handleChangeName(event,item.id)}
                 />
             ))}
         </div> );
