@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import {Button} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import Items from './Components/Item/Items';
 import Header from './Components/Common/Header';
@@ -9,14 +8,7 @@ import MainTable from './Components/Common/MainTable';
 
 const App=()=>{
 	const [getItems, setItems]=useState([]);
-	const [getSingleItem, setSingleItem]=useState("");
-	const [getShowItem, setShowItem]=useState(true);
 	
-	
-	const handleShowItem = () => {
-		setShowItem(!getShowItem);
-	};
-
 	const handleDeleteItem = (id) => {
 		const items = [...getItems];
 		const filterItems = items.filter((p) => p.id !== id);
@@ -57,7 +49,6 @@ const App=()=>{
 			& item.count !== '') {
 			items.push(item);
 			setItems(items);
-			setSingleItem("");
 			toast.success('قلم مورد نظر اضافه شد', {
 				position: 'bottom-center',
 				autoClose: 1000,
@@ -66,31 +57,19 @@ const App=()=>{
 		}
 	};
 
-	const setItem = (event) => {
-		console.log(event.target.value);
-		setSingleItem(event.target.value);
-	};
-	
-		let item = null;
-
-		if (getShowItem) {
-			item = <Items />;
-		}
-
-		return (
+	return (
 			<ItemContext.Provider value={{
 				items:getItems,
-				item:getSingleItem,
 				handleDeleteItem:handleDeleteItem,
 				handleChangeName:handleChangeName,
 				handleNewItem:handleNewItem,
-				setItem:setItem,
 				
 			}}>
-			<div className="rtl text-center">
+			<div className="rtl text-center container">
 				<Header appTitle="مدیریت کننده اقلام"/>
 				<AddNewItem/>
-				<MainTable />				
+				<MainTable />	
+				<button class="btn btn-primary">ذخیره</button>
 				<ToastContainer />
 			</div>
 			</ItemContext.Provider>
