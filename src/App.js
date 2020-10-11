@@ -5,11 +5,13 @@ import Items from './Components/Item/Items';
 import Header from './Components/Common/Header';
 import ItemContext from './Context/ItemContext';
 import AddNewItem from './Components/Item/AddNewItem';
+import MainTable from './Components/Common/MainTable';
 
 const App=()=>{
-	const [getItems,setItems]=useState([]);
-	const [getSingleItem,setSingleItem]=useState("");
-	const [getShowItem,setShowItem]=useState(true);
+	const [getItems, setItems]=useState([]);
+	const [getSingleItem, setSingleItem]=useState("");
+	const [getShowItem, setShowItem]=useState(true);
+	
 	
 	const handleShowItem = () => {
 		setShowItem(!getShowItem);
@@ -40,26 +42,32 @@ const App=()=>{
 		setItems(allItems);
 	};
 
-	const handleNewItem = () => {
+	const handleNewItem = (data) => {
+		//console.log("ddddd", data.name);
 		const items = [...getItems];
 		const item = {
 			id: Math.floor(Math.random() * 1000),
-			name: getSingleItem,
+			name: data.name,
+			price: data.price, 
+			count: data.count
 		};
 
-		if ((item.name !== '') & (item.name !== ' ')) {
+		if ((item.name !== '') & (item.name !== ' ')
+			& item.price !== ''
+			& item.count !== '') {
 			items.push(item);
 			setItems(items);
 			setSingleItem("");
 			toast.success('قلم مورد نظر اضافه شد', {
 				position: 'bottom-center',
-				autoClose: 5000,
+				autoClose: 1000,
 				closeOnClick: true,
 			});
 		}
 	};
 
 	const setItem = (event) => {
+		console.log(event.target.value);
 		setSingleItem(event.target.value);
 	};
 	
@@ -76,17 +84,13 @@ const App=()=>{
 				handleDeleteItem:handleDeleteItem,
 				handleChangeName:handleChangeName,
 				handleNewItem:handleNewItem,
-				setItem:setItem
+				setItem:setItem,
+				
 			}}>
 			<div className="rtl text-center">
 				<Header appTitle="مدیریت کننده اقلام"/>
 				<AddNewItem/>
-				<div>
-					<Button onClick={handleShowItem} variant={getShowItem ? 'info' : 'danger'}>
-						نمایش و مخفی
-					</Button>
-				</div>
-				{item}
+				<MainTable />				
 				<ToastContainer />
 			</div>
 			</ItemContext.Provider>

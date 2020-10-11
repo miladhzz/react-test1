@@ -6,7 +6,12 @@ const ItemContext = createContext({
     handleDeleteItem: () => { },
     handleChangeName: () => { },
     handleNewItem: () => { },
-    setItem: () => { }
+    setItem: () => { },   
+    row : {
+        name:"",
+        price:"",
+        count:"" 
+    } 
 });
 
 export default ItemContext;
