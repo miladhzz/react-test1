@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Button} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import Items from './Components/Item/Items';
@@ -6,19 +6,19 @@ import Header from './Components/Common/Header';
 import ItemContext from './Context/ItemContext';
 import AddNewItem from './Components/Item/AddNewItem';
 
-//import 'App.css';
-
-class App extends React.Component {
-	state = { items: [], item: '', showitem: true, appTitle:"مدیریت کننده اقلام" };
-
-	handleShowItem = () => {
-		this.setState({ showitem: !this.state.showitem });
+const App=()=>{
+	const [getItems,setItems]=useState([]);
+	const [getSingleItem,setSingleItem]=useState("");
+	const [getShowItem,setShowItem]=useState(true);
+	
+	const handleShowItem = () => {
+		setShowItem(!getShowItem);
 	};
 
-	handleDeleteItem = (id) => {
-		const items = [...this.state.items];
+	const handleDeleteItem = (id) => {
+		const items = [...getItems];
 		const filterItems = items.filter((p) => p.id !== id);
-		this.setState({ items: filterItems });
+		setItems(filterItems);
 
 		const index = items.findIndex((i) => i.id === id);
 		const item = items[index];
@@ -29,27 +29,28 @@ class App extends React.Component {
 		});
 	};
 
-	handleChangeName = (event, id) => {
-		const { items: allItems } = this.state;
+	const handleChangeName = (event, id) => {
+		const { items: allItems } = getItems;
 		const items = [...allItems];
 		const itemIndex = allItems.findIndex((p) => p.id === id);
 		const item = allItems[itemIndex];
 
 		item.name = event.target.value;
-		Items[itemIndex] = item;
-		this.setState({ items });
+		items[itemIndex] = item;
+		setItems({items});
 	};
 
-	handleNewItem = () => {
-		const items = [...this.state.items];
+	const handleNewItem = () => {
+		const items = [...getItems];
 		const item = {
 			id: Math.floor(Math.random() * 1000),
-			name: this.state.item,
+			name: getSingleItem,
 		};
 
 		if ((item.name !== '') & (item.name !== ' ')) {
 			items.push(item);
-			this.setState({ items, item: '' });
+			setItems(items);
+			setSingleItem("");
 			toast.success('قلم مورد نظر اضافه شد', {
 				position: 'bottom-center',
 				autoClose: 5000,
@@ -58,39 +59,37 @@ class App extends React.Component {
 		}
 	};
 
-	setItem = (event) => {
-		this.setState({ item: event.target.value });
+	const setItem = (event) => {
+		setSingleItem(event.target.value);
 	};
 	
-	render() {
-		const { showitem } = this.state;
 		let item = null;
 
-		if (showitem) {
+		if (getShowItem) {
 			item = <Items />;
 		}
 
 		return (
 			<ItemContext.Provider value={{
-				state:this.state,
-				handleDeleteItem:this.handleDeleteItem,
-				handleChangeName:this.handleChangeName,
-				handleNewItem:this.handleNewItem,
-				setItem:this.setItem
-      }}>
-				<div className="rtl text-center">
-					<Header/>
-					<AddNewItem/>
-					<div>
-						<Button onClick={this.handleShowItem} variant={showitem ? 'info' : 'danger'}>
-							نمایش و مخفی
-						</Button>
-					</div>
-					{item}
-					<ToastContainer />
+				items:getItems,
+				item:getSingleItem,
+				handleDeleteItem:handleDeleteItem,
+				handleChangeName:handleChangeName,
+				handleNewItem:handleNewItem,
+				setItem:setItem
+			}}>
+			<div className="rtl text-center">
+				<Header appTitle="مدیریت کننده اقلام"/>
+				<AddNewItem/>
+				<div>
+					<Button onClick={handleShowItem} variant={getShowItem ? 'info' : 'danger'}>
+						نمایش و مخفی
+					</Button>
 				</div>
+				{item}
+				<ToastContainer />
+			</div>
 			</ItemContext.Provider>
 		);
 	}
-}
 export default App;

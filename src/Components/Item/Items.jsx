@@ -4,10 +4,9 @@ import Item from './Item.jsx';
 
 const Items=()=>{
     const context = useContext(ItemContext);
-    const {items}=context.state;
     return(
         <div>
-            {items.map(item=>(
+            {context.items.map(item=>(
                 <Item key={item.id} 
                 name={item.name} 
                 deleted={()=>context.handleDeleteItem(item.id)}

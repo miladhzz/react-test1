@@ -16,7 +16,7 @@ const AddNewItem = () => {
                         className="form-control"
                         placeholder=" اسم بهم بده "
                         onChange={context.setItem}
-                        value={context.state.item}
+                        value={context.item}
                     />
                     <Button
                         type="submit"

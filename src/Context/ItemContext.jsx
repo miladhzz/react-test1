@@ -1,7 +1,8 @@
 import { createContext } from 'react';
 
 const ItemContext = createContext({
-    state: {},
+    items: [],
+    item:"",
     handleDeleteItem: () => { },
     handleChangeName: () => { },
     handleNewItem: () => { },

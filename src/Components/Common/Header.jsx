@@ -2,14 +2,13 @@ import React, { useContext } from 'react';
 import { Alert, Badge } from 'react-bootstrap';
 import ItemContext from '../../Context/ItemContext';
 
-const Header = () => {
+const Header = ({appTitle}) => {
   const context = useContext(ItemContext);
-  const {items,appTitle}=context.state;
 
 	let badgestyle = '';
-	if (items.length >= 3) badgestyle = 'success';
-	if (items.length <= 2) badgestyle = 'warning';
-	if (items.length <= 1) badgestyle = 'danger';
+	if (context.items.length >= 3) badgestyle = 'success';
+	if (context.items.length <= 2) badgestyle = 'warning';
+	if (context.items.length <= 1) badgestyle = 'danger';
 
 	return (
 		<div>
@@ -20,7 +19,7 @@ const Header = () => {
 				<Alert variant="light">
 					تعداد اقلام &nbsp;
 					<Badge pill variant={badgestyle}>
-						{items.length}
+						{context.items.length}
 					</Badge>{' '}
 					عدد می باشد
 				</Alert>
