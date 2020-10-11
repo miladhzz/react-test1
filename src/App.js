@@ -57,6 +57,15 @@ const App=()=>{
 		}
 	};
 
+	const saveFactor = ()=>{
+
+		toast.success('فاکتور ذخیره شد، شماره فاکتور 123123', {
+			position: 'bottom-center',			
+			closeOnClick: true,
+			autoClose: false,
+		});
+	}
+
 	return (
 			<ItemContext.Provider value={{
 				items:getItems,
@@ -69,7 +78,9 @@ const App=()=>{
 				<Header appTitle="مدیریت کننده اقلام"/>
 				<AddNewItem/>
 				<MainTable />	
-				<button class="btn btn-primary">ذخیره</button>
+				<button class="btn btn-primary" 
+					onClick={saveFactor}
+					>ذخیره</button>
 				<ToastContainer />
 			</div>
 			</ItemContext.Provider>
