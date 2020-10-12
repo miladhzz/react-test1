@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Alert } from 'react-bootstrap';
 
 class Search extends React.Component {
     
@@ -42,9 +43,9 @@ class Search extends React.Component {
     render() {
         return(
         <div className="rtl text-center container">
-            <div>
-                جستجو
-            </div>
+            <Alert variant="info">
+				<h2>جستجو</h2>
+			</Alert>
             <table className="table table-striped">
                 <thead>
                     <tr>
