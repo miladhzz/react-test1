@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SelfHost.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,15 @@ namespace SelfHost.Controller
 {
     public class FactorController : ApiController
     {
-        public string GetFactor()
+        FactorDbContext _factorDbContext;
+        public FactorController()
         {
-            return "432432432";
+            _factorDbContext = new FactorDbContext();
+        }
+        public List<Factor> GetFactor()
+        {
+            return _factorDbContext.Factors.ToList();
         }
     }
+   
 }

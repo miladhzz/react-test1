@@ -12,9 +12,11 @@ namespace SelfHost
     {
         static void Main(string[] args)
         {
-            using (WebApp.Start<Startup>("http://localhost:3001"))
+            var url = "http://localhost:3001";
+
+            using (WebApp.Start<Startup>(url))
             {
-                Console.WriteLine("webserver running");
+                Console.WriteLine("webserver running in address:" + url);
                 Console.WriteLine("pree any key to quit");
                 Console.ReadLine();
             }
