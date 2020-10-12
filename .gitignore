@@ -29,3 +29,7 @@ yarn-error.log*
 ReactFactorApi/SelfHost/bin
 ReactFactorApi/SelfHost/obj
 ReactFactorApi/packages
+
+#visual studio files
+ReactFactorApi/.vs/ReactFactorApi/v16/.suo
+ReactFactorApi/SelfHost/SelfHost.csproj.user
