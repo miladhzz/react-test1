@@ -12,16 +12,16 @@ class Search extends React.Component {
             factor: [],
             name: "",
         }
-        this.handleSubmitButton = this.handleSubmitButton.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     
-    handleChange(){
-
+    handleChange(event){
+        this.setState({name: event.target.value});
     }
 
-    handleSubmitButton(){
-
+    handleSubmit(event){
+        event.preventDefault();
     }
 
     componentDidMount(){
@@ -61,7 +61,7 @@ class Search extends React.Component {
 			</Alert>
             <form
                 className="form-inline justify-content-center"
-                onSubmit={(event) => event.preventDefault()}
+                onSubmit={this.handleSubmit}
             >
             <div className="input-group">
                     <label>
@@ -79,7 +79,6 @@ class Search extends React.Component {
                                     
                     <button
                         type="submit"
-                        onClick={this.handleSubmitButton}
                         variant={'success'}
                         className="btn btn-primary"
                         style={style}
