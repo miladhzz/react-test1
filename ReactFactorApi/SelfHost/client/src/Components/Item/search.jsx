@@ -10,9 +10,20 @@ class Search extends React.Component {
 
         this.state = {
             factor: [],
+            name: "",
         }
+        this.handleSubmitButton = this.handleSubmitButton.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     
+    handleChange(){
+
+    }
+
+    handleSubmitButton(){
+
+    }
+
     componentDidMount(){
         axios
             .get(
@@ -28,7 +39,7 @@ class Search extends React.Component {
                             quantity: obj.Quantity,
                         }));
                     this.setState({factor:fact});
-                    console.log('factor', this.state.factor);
+                    //console.log('factor', this.state.factor);
                 }
             })
             .catch(ex => {
@@ -41,11 +52,42 @@ class Search extends React.Component {
     }
    
     render() {
+        const style = {margin: 10,};
+
         return(
         <div className="rtl text-center container">
             <Alert variant="info">
 				<h2>جستجو</h2>
 			</Alert>
+            <form
+                className="form-inline justify-content-center"
+                onSubmit={(event) => event.preventDefault()}
+            >
+            <div className="input-group">
+                    <label>
+                        نام کالا:
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="نام کالا"  
+                            name="name"
+                            onChange={this.handleChange}
+                            value={this.state.name}
+                            required
+                        />
+                    </label>
+                                    
+                    <button
+                        type="submit"
+                        onClick={this.handleSubmitButton}
+                        variant={'success'}
+                        className="btn btn-primary"
+                        style={style}
+                    >
+                        جستجو
+                    </button>
+                </div>
+            </form>
             <table className="table table-striped">
                 <thead>
                     <tr>
