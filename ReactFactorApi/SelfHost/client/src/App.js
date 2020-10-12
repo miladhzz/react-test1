@@ -78,7 +78,7 @@ const App=()=>{
 				<Header appTitle="مدیریت کننده اقلام"/>
 				<AddNewItem/>
 				<MainTable />	
-				<button class="btn btn-primary" 
+				<button className="btn btn-primary" 
 					onClick={saveFactor}
 					>ذخیره</button>
 				<ToastContainer />
