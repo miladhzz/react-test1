@@ -19,6 +19,13 @@ namespace SelfHost.Controller
         {
             return _factorDbContext.Factors.ToList();
         }
+
+        [HttpGet]
+        public List<Factor> SearchFactor(string name)
+        {
+            name = name ?? "";
+            return _factorDbContext.Factors.Where(x=>x.Name.StartsWith(name)).ToList();
+        }
     }
    
 }

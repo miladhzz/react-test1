@@ -21,7 +21,34 @@ class Search extends React.Component {
     }
 
     handleSubmit(event){
-        event.preventDefault();
+        event.preventDefault();     
+        axios
+            .get(
+                "http://localhost:3001/api/factor/SearchFactor", {
+                    params: {
+                      name: this.state.name
+                    }}
+            )
+            .then(({ data, status }) => {
+                if (status === 200) {
+                    const fact = data.map(obj => (
+                        {
+                            id: obj.Id, 
+                            name: obj.Name,
+                            price: obj.Price, 
+                            quantity: obj.Quantity,
+                        }));
+                    this.setState({factor:fact});
+                    //console.log('factor', this.state.factor);
+                }
+            })
+            .catch(ex => {
+                toast.error("مشکلی پیش آمده.", {
+                    position: "top-right",
+                    closeOnClick: true
+                });
+                console.log(ex);
+            });
     }
 
     componentDidMount(){
@@ -73,7 +100,7 @@ class Search extends React.Component {
                             name="name"
                             onChange={this.handleChange}
                             value={this.state.name}
-                            required
+                            
                         />
                     </label>
                                     
