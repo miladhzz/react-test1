@@ -66,7 +66,7 @@ const App=()=>{
             .then(({ data, status }) => {
                 if (status === 200) {
 					console.log(data);
-					toast.success('فاکتور ذخیره شد، شماره فاکتور ' , {
+					toast.success('فاکتور ذخیره شد، شماره فاکتور ' + data , {
 						position: 'bottom-center',			
 						closeOnClick: true,
 						autoClose: false,
