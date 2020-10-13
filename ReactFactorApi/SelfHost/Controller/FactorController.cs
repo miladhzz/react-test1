@@ -57,15 +57,15 @@ namespace SelfHost.Controller
             {
                 orderItem.Id = 0;               
             }
-            _factorDbContext.Factors.Add
-                (new Factor() 
-                {
-                    Create_date = DateTime.Now, 
-                    OrderItems = orderItems 
-                });
-            var factorId = _factorDbContext.SaveChanges();            
+            var newFactor = new Factor()
+            {
+                Create_date = DateTime.Now,
+                OrderItems = orderItems
+            };
+            _factorDbContext.Factors.Add(newFactor);
+            _factorDbContext.SaveChanges();            
             
-            return factorId.ToString();
+            return newFactor.Id.ToString();
         }
     }
    
