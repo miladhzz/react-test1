@@ -15,29 +15,57 @@ namespace SelfHost.Controller
         {
             _factorDbContext = new FactorDbContext();
         }
-        public List<Factor> GetFactor()
+        public List<FactorResponse> GetFactor()
         {
-            return _factorDbContext.Factors.ToList();
+            var result = _factorDbContext.Factors.Select(factor =>            
+                new FactorResponse()
+                {
+                    Id = factor.Id,
+                    CreateDate = factor.Create_date
+                }).ToList();
+
+            return result;
         }
 
         [HttpGet]
-        public List<Factor> SearchFactor(string name)
+        public List<FactorResponse> SearchFactor(int? id)
         {
-            name = name ?? "";
-            return _factorDbContext.Factors.Where(x=>x.Name.StartsWith(name)).ToList();
+            if (id == null)
+            {
+                return _factorDbContext.Factors.Select(factor =>
+                  new FactorResponse()
+                  {
+                      Id = factor.Id,
+                      CreateDate = factor.Create_date
+                  }).ToList();
+            }
+
+            var result =  _factorDbContext.Factors.Where(x=>x.Id == id).Select(factor =>
+                new FactorResponse()
+                {
+                    Id = factor.Id,
+                    CreateDate = factor.Create_date
+                }).ToList();
+
+            return result;
         }
 
         [HttpPost]
-        public string CreateFactor(List<Factor> factors)
+        public string CreateFactor(List<OrderItem> orderItems)
         {
-            foreach(var factor in factors)
+            foreach(var orderItem in orderItems)
             {
-                factor.Id = 0;
-                _factorDbContext.Factors.Add(factor);
+                orderItem.Id = 0;               
             }
-            _factorDbContext.SaveChanges();
+            _factorDbContext.Factors.Add
+                (new Factor() 
+                {
+                    Create_date = DateTime.Now, 
+                    OrderItems = orderItems 
+                });
+            var factorId = _factorDbContext.SaveChanges();            
             
-            return "123132132";
+            return factorId.ToString();
         }
     }
    

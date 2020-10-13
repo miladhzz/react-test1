@@ -15,7 +15,7 @@ namespace SelfHost
         public FactorDbContext(): base(ConnectionString)
         {
         }
-
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Factor> Factors { get; set; }
     }
 }

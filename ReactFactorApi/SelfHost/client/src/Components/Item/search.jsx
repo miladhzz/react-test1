@@ -10,14 +10,14 @@ class Search extends React.Component {
 
         this.state = {
             factor: [],
-            name: "",
+            Id: "",
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
     handleChange(event){
-        this.setState({name: event.target.value});
+        this.setState({Id: event.target.value});
     }
 
     handleSubmit(event){
@@ -26,7 +26,7 @@ class Search extends React.Component {
             .get(
                 "http://localhost:3001/api/factor/SearchFactor", {
                     params: {
-                      name: this.state.name
+                      id: this.state.Id
                     }}
             )
             .then(({ data, status }) => {
@@ -34,9 +34,7 @@ class Search extends React.Component {
                     const fact = data.map(obj => (
                         {
                             id: obj.Id, 
-                            name: obj.Name,
-                            price: obj.Price, 
-                            quantity: obj.Quantity,
+                            CreateDate: obj.CreateDate,                            
                         }));
                     this.setState({factor:fact});
                     //console.log('factor', this.state.factor);
@@ -61,9 +59,7 @@ class Search extends React.Component {
                     const fact = data.map(obj => (
                         {
                             id: obj.Id, 
-                            name: obj.Name,
-                            price: obj.Price, 
-                            quantity: obj.Quantity,
+                            CreateDate: obj.CreateDate
                         }));
                     this.setState({factor:fact});
                     //console.log('factor', this.state.factor);
@@ -92,14 +88,14 @@ class Search extends React.Component {
             >
             <div className="input-group">
                     <label>
-                        نام کالا:
+                        شماره فاکتور:
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="نام کالا"  
-                            name="name"
+                            placeholder="شماره فاکتور"  
+                            name="Id"
                             onChange={this.handleChange}
-                            value={this.state.name}
+                            value={this.state.Id}
                             
                         />
                     </label>
@@ -121,16 +117,10 @@ class Search extends React.Component {
                             ردیف
                         </td>
                         <td>
-                            عنوان
+                            تاریخ
                         </td>
                         
-                        <td>
-                            قیمت
-                        </td>
-
-                        <td>
-                            تعداد
-                        </td>
+                       
                         
                     </tr>
                 </thead>
@@ -138,9 +128,7 @@ class Search extends React.Component {
                     {this.state.factor.map((item, i) => (
                         <tr key={i}>
                             <td>{item.id}</td>
-                            <td>{item.name}</td>
-                            <td>{item.price}</td>
-                            <td>{item.quantity}</td>
+                            <td>{item.CreateDate}</td>                            
                         </tr>
                         ))}       
                 </tbody>
