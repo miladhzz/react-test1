@@ -5,6 +5,7 @@ import Header from './Components/Common/Header';
 import ItemContext from './Context/ItemContext';
 import AddNewItem from './Components/Item/AddNewItem';
 import MainTable from './Components/Common/MainTable';
+import axios from "axios";
 
 const App=()=>{
 	const [getItems, setItems]=useState([]);
@@ -41,12 +42,12 @@ const App=()=>{
 			id: Math.floor(Math.random() * 1000),
 			name: data.name,
 			price: data.price, 
-			count: data.count
+			quantity: data.quantity
 		};
 
 		if ((item.name !== '') & (item.name !== ' ')
 			& item.price !== ''
-			& item.count !== '') {
+			& item.quantity !== '') {
 			items.push(item);
 			setItems(items);
 			toast.success('قلم مورد نظر اضافه شد', {
@@ -57,13 +58,30 @@ const App=()=>{
 		}
 	};
 
-	const saveFactor = ()=>{
+	const saveFactor = ()=>{		
+		axios
+            .post(
+                "http://localhost:3001/api/factor/CreateFactor", getItems
+            )
+            .then(({ data, status }) => {
+                if (status === 200) {
+					console.log(data);
+					toast.success('فاکتور ذخیره شد، شماره فاکتور ' , {
+						position: 'bottom-center',			
+						closeOnClick: true,
+						autoClose: false,
+					});
+                }
+            })
+            .catch(ex => {
+                toast.error("مشکلی پیش آمده.", {
+                    position: "top-right",
+                    closeOnClick: true
+                });
+                console.log(ex);
+            });
 
-		toast.success('فاکتور ذخیره شد، شماره فاکتور 123123', {
-			position: 'bottom-center',			
-			closeOnClick: true,
-			autoClose: false,
-		});
+		
 	}
 
 	return (

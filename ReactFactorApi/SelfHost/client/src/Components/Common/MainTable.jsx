@@ -33,7 +33,7 @@ const MainTable = ()=> {
                             <td>{i+1}</td>
                             <td>{item.name}</td>
                             <td>{item.price}</td>
-                            <td>{item.count}</td>
+                            <td>{item.quantity}</td>
                         </tr>
                         ))}       
                 </tbody>

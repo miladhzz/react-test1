@@ -7,7 +7,7 @@ const AddNewItem = () => {
         {
             name:"",
             price:"",
-            count:""            
+            quantity:""            
         }
     );
     
@@ -66,9 +66,9 @@ const AddNewItem = () => {
                             type="number"
                             className="form-control"
                             placeholder="تعداد"
-                            name="count"
+                            name="quantity"
                             onChange={handleChange}
-                            value={row.count}
+                            value={row.quantity}
                             required                           
                         />
                     </label>

@@ -26,6 +26,19 @@ namespace SelfHost.Controller
             name = name ?? "";
             return _factorDbContext.Factors.Where(x=>x.Name.StartsWith(name)).ToList();
         }
+
+        [HttpPost]
+        public string CreateFactor(List<Factor> factors)
+        {
+            foreach(var factor in factors)
+            {
+                factor.Id = 0;
+                _factorDbContext.Factors.Add(factor);
+            }
+            _factorDbContext.SaveChanges();
+            
+            return "123132132";
+        }
     }
    
 }
