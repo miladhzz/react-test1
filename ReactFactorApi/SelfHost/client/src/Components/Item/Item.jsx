@@ -1,5 +1,5 @@
 import React from 'react';
-
+import propTypes from 'prop-types';
 
 const Item=({name,deleted,changed})=>{
     return(
@@ -15,5 +15,9 @@ const Item=({name,deleted,changed})=>{
             </div>
         </div>);
         }
-
+Item.propTypes={
+    name: propTypes.string,
+    deleted: propTypes.func,
+    changed: propTypes.func
+}
 export default Item;

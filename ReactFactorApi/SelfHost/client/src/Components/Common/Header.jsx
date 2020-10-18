@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Alert, Badge } from 'react-bootstrap';
 import ItemContext from '../../Context/ItemContext';
+import propTypes from 'prop-types';
 
 const Header = ({appTitle}) => {
   const context = useContext(ItemContext);
@@ -28,4 +29,7 @@ const Header = ({appTitle}) => {
 	);
 };
 
+Header.propTypes={
+	appTitle:propTypes.string
+}
 export default Header;
