@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react';
+import React,{useContext, useState,useRef,useEffect} from 'react';
 import ItemContext from '../../Context/ItemContext';
 import {Button} from 'react-bootstrap';
 
@@ -11,11 +11,14 @@ const AddNewItem = () => {
         }
     );
     
-
+    const focusInput=useRef(null);
     const context=useContext(ItemContext);
     const style = {margin: 10,}
     
-    
+    useEffect(() => {
+       focusInput.current.focus();
+    })
+
     const handleChange= (event)=> {
         const value = event.target.value;
         setState({
@@ -45,6 +48,7 @@ const AddNewItem = () => {
                             name="name"
                             onChange={handleChange}
                             value={row.name}
+                            ref={focusInput}
                             required
                         />
                     </label>
