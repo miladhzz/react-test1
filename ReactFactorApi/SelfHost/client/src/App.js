@@ -6,6 +6,8 @@ import ItemContext from './Context/ItemContext';
 import AddNewItem from './Components/Item/AddNewItem';
 import MainTable from './Components/Common/MainTable';
 import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const App=()=>{
 	const [getItems, setItems]=useState([]);
@@ -39,7 +41,7 @@ const App=()=>{
 		//console.log("ddddd", data.name);
 		const items = [...getItems];
 		const item = {
-			id: Math.floor(Math.random() * 1000),
+			id: uuidv4(),
 			name: data.name,
 			price: data.price, 
 			quantity: data.quantity
