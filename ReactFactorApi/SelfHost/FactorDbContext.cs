@@ -10,7 +10,7 @@ namespace SelfHost
 {
     public class FactorDbContext : DbContext
     {
-        private static string ConnectionString = "Server=.;Database=FactorDb;UID=sa;PWD=123456789*;MultipleActiveResultSets=true;";
+        private static string ConnectionString = "Server=.;Database=FactorDb;UID=sa;PWD=Aa123456;MultipleActiveResultSets=true;";
 
         public FactorDbContext(): base(ConnectionString)
         {
